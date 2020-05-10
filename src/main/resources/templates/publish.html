@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>ONE社区 -- 发布</title>
+    <title>ONE社区</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
@@ -16,7 +16,8 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">ONE 社区</span>
             </button>
-            <img src="images/logo.png" alt="logo"  class="navbar-brand" >
+            <a href="/"> <img src="images/logo.png" alt="logo"  class="navbar-brand" ></a>
+
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <form class="navbar-form navbar-left">
@@ -66,7 +67,7 @@
                     <label for="tag">添加标签：</label>
                     <input type="text" class="form-control" id="tag" name="tag" th:value="${tag}" placeholder="请输入问题标签（以‘，’号分隔）">
                 </div>
-                <span th:text="${error}" style="color: red;position:relative;left: 10px;font-size: 20px;"></span>
+                <span th:text="${error}" style="color: red;position:relative;left: 10px;font-size: 10px;"></span>
                 <button type="submit" class="btn btn-success btn-publish">发布</button>
             </form>
         </div>
@@ -78,7 +79,7 @@
         </div>
     </div>
 </div>
-
+<div id="footer">CopyRight@copyYangmoyu 黔ICP备20003575号-1</div>
 
 </body>
 </html>

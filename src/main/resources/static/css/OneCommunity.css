@@ -9,3 +9,34 @@ body{
     float: right;
     margin-bottom: 20px;
 }
+
+#footer {
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    line-height: 40px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background: #333;
+    color: #fff;
+    font-family: Arial, serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+.media-object{
+    width: 38px;
+    height: 38px;
+}
+.text-descripte{
+    font-size: 12px;
+    font-width: normal;
+    color: #999999;
+}
+.img-circle{
+    width: 10px;
+    height: 10px;
+}
