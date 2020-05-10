@@ -37,6 +37,9 @@ body{
     color: #999999;
 }
 .img-circle{
-    width: 10px;
-    height: 10px;
+    width: 30px;
+    height: 30px;
+}
+.img-avatar{
+    margin-top:9px;
 }

@@ -16,4 +16,6 @@ public class QuestionDTO {
     private Integer commentCount;
     private Integer viewCount;
     private User user;
+
+
 }

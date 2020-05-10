@@ -51,6 +51,10 @@ public class PublishController {
                 }
             }
         }
+        if (user!=null){
+            model.addAttribute("user",user);
+        }
+
 
         if(user==null){
             model.addAttribute("error","*用户未登陆");
