@@ -11,7 +11,7 @@ body{
 }
 
 #footer {
-    height: 80px;
+    height: 29px;
     display: flex;
     flex-direction: column;
     justify-content: center;

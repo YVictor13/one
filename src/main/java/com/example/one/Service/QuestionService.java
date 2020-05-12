@@ -20,10 +20,12 @@ public class QuestionService {
     @Autowired(required = false)
     private UserMapper userMapper;
 
-    public List<QuestionDTO> List() {
+    public List<QuestionDTO> List(Integer page, Integer size) {
+        //size(page-1)
+        Integer offset = size*(page-1);
 
         List<QuestionDTO> questionDTOList = new ArrayList<>();
-        List<Question> questions = questionMapper.List();
+        List<Question> questions = questionMapper.List(offset,size);
         for (Question question : questions) {
             User user= userMapper.findById(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
