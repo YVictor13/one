@@ -13,7 +13,8 @@
 
 </head>
 <body>
-
+<!--导航菜单-->
+<div th:insert="navigation::nav"></div>
 <!--中间部分-->
 
 <div class="container-fluid main">
@@ -90,6 +91,6 @@
 
 </div>
 <!--底部备案号-->
-<div id="footer">CopyRight@copyYangmoyu 黔ICP备20003575号-1</div>
+<div th:insert="footer::footer"></div>
 </body>
 </html>
