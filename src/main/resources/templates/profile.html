@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>ONE社区</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/OneCommunity.css">
+    <script src="js/jquery-3.5.0.min.js"></script>
+    <script src="js/bootbox.min.js" text="application/javascript"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container-fluid main">
+    <div class="row" style="background-color: #ffffff">
+
+
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+
+            <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 发现</h2>
+            <hr/>
+            <!--            问题列表-->
+
+            <!--/*@thymesVar id="questions" type=""*/-->
+            <!--/*@thymesVar id="questions" type=""*/-->
+            <div class="media" th:each="question:${Pagination.questions}">
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <!--/*@thymesVar id="user" type=""*/-->
+                        <img class="media-object img-circle" th:src="${question.user.avatarUrl}" alt="图片">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading" th:text="${question.title}"></h4>
+                    <span th:text="${question.description}"></span>
+                    <br>
+                    <span class="text-descripte">
+                        <span th:text="${question.commentCount}"></span>个回复  ·
+                        <span th:text="${question.viewCount}"></span>次浏览  ·
+                        <span th:text="${#dates.format(question.gmtCreate,' yyyy-MM-dd HH:mm')}"></span>
+                    </span>
+                </div>
+            </div>
+
+            <!--            分页-->
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li>
+                        <a th:if="${Pagination.showReturnFirstPage}" href="/?page=1" aria-label="Previous">
+                            <span aria-hidden="true">&lt;&lt;</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:if="${Pagination.showPrePage}" th:href="@{/(page=${Pagination.currentPage-1})}" aria-label="Previous">
+                            <span aria-hidden="true">&lt;</span>
+                        </a>
+                    </li>
+                    <li th:each="page:${Pagination.showPages}" th:class="${Pagination.currentPage==page}?active:''">
+                        <a th:href="@{/(page=${page})}" th:text="${page}" ></a>
+                    </li>
+
+                    <li>
+                        <a th:if="${Pagination.showNextPage}" th:href="@{/(page=${Pagination.currentPage+1})}" aria-label="Next">
+                            <span aria-hidden="true">&gt;</span>
+                        </a>
+                    </li>
+                    <li>
+                        <!--/*@thymesVar id="TotalPage" type=""*/-->
+                        <a th:if="${Pagination.showReturnEndPage}" th:href="@{/(page=${Pagination.totalPage})}" aria-label="Next">
+                            <span aria-hidden="true">&gt;&gt;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+
+
+        </div>
+
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <h3>热门换题</h3>
+            想你所想，做你所不敢做，所谓引领。
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
