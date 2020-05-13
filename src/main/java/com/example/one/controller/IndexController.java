@@ -1,7 +1,6 @@
 package com.example.one.controller;
 
 import com.example.one.Dto.PaginationDTO;
-import com.example.one.Dto.QuestionDTO;
 import com.example.one.Model.User;
 import com.example.one.Service.QuestionService;
 import com.example.one.mapper.UserMapper;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 public class IndexController {
