@@ -43,3 +43,7 @@ body{
 .img-avatar{
     margin-top:9px;
 }
+.list-group{
+    background-color: #2e6da4;
+    color: #fff;
+}
