@@ -1,5 +1,6 @@
 package com.example.one.controller;
 
+import com.example.one.Dto.PaginationDTO;
 import com.example.one.Dto.QuestionDTO;
 import com.example.one.Model.User;
 import com.example.one.Service.QuestionService;
@@ -20,7 +21,6 @@ public class IndexController {
     private UserMapper userMapper;
     @Autowired(required = false)
     private QuestionService questionService;
-
 
     @GetMapping("/")
     public String index(HttpServletRequest request,
@@ -44,8 +44,8 @@ public class IndexController {
 
         //        获取用户头像
         model.addAttribute("user",user);
-        List<QuestionDTO> questionsList = questionService.List(page,size);
-        model.addAttribute("questionList",questionsList);
+        PaginationDTO Pagination = questionService.List(page,size);
+        model.addAttribute("Pagination",Pagination);
         return "index";
     }
 }

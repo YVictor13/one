@@ -1,5 +1,6 @@
 package com.example.one.Service;
 
+import com.example.one.Dto.PaginationDTO;
 import com.example.one.Dto.QuestionDTO;
 import com.example.one.Model.Question;
 import com.example.one.Model.User;
@@ -20,11 +21,21 @@ public class QuestionService {
     @Autowired(required = false)
     private UserMapper userMapper;
 
-    public List<QuestionDTO> List(Integer page, Integer size) {
+    public PaginationDTO List(Integer page, Integer size) {
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
+        PaginationDTO paginationDTO = new PaginationDTO();
+        Integer totalCount = questionMapper.Count();
+        paginationDTO.setPagination(totalCount,page,size);
+
+
+        if(page<1){
+            page=1;
+        }
+        if(page>paginationDTO.getTotalPage()){
+            page=paginationDTO.getTotalPage();
+        }
         //size(page-1)
         Integer offset = size*(page-1);
-
-        List<QuestionDTO> questionDTOList = new ArrayList<>();
         List<Question> questions = questionMapper.List(offset,size);
         for (Question question : questions) {
             User user= userMapper.findById(question.getCreator());
@@ -34,6 +45,7 @@ public class QuestionService {
             questionDTOList.add(questionDTO);
 
         }
-        return questionDTOList;
+        paginationDTO.setQuestions(questionDTOList);
+        return paginationDTO;
     }
 }
