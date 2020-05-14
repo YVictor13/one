@@ -24,7 +24,7 @@ public class IndexController {
     public String index(HttpServletRequest request,
                         Model model,
                         @RequestParam(name = "page",defaultValue = "1") Integer page,
-                        @RequestParam(name = "size",defaultValue = "5")Integer size) {
+                        @RequestParam(name = "size",defaultValue = "10")Integer size) {
         User user=null;
         Cookie[] cookies = request.getCookies();
         if(cookies!=null&&cookies.length!=0){
@@ -41,7 +41,6 @@ public class IndexController {
         }
 
         //        获取用户头像
-        model.addAttribute("user",user);
         PaginationDTO Pagination = questionService.List(page,size);
         model.addAttribute("Pagination",Pagination);
         return "index";

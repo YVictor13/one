@@ -20,4 +20,8 @@ public interface QuestionMapper {
 
     @Select("SELECT COUNT(1) FROM one.question")
     Integer Count();
+    @Select("SELECT * FROM one.question where creator=#{id} limit #{offset},#{size}")
+    List<Question> profileList(@Param(value = "id") Integer id,@Param(value = "offset") Integer offset, @Param(value = "size") Integer size);
+    @Select("SELECT COUNT(1) FROM one.question where creator=#{id}")
+    Integer profileCount(@Param(value = "id")Integer id);
 }

@@ -14,5 +14,10 @@
       "name": "github.redirect.uri",
       "type": "java.lang.String",
       "description": "Description for github.redirect.uri."
+    },
+    {
+      "name": "logoURL",
+      "type": "java.lang.String",
+      "description": "Description for logoURL."
     }
   ] }

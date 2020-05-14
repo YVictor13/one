@@ -17,7 +17,6 @@ public class PaginationDTO {
 
     public void setPagination(Integer totalCount, Integer page, Integer size) {
 
-        int TotalPage;
         if (totalCount % size == 0) {
             this.TotalPage = totalCount / size;
         } else {
@@ -44,30 +43,14 @@ public class PaginationDTO {
         }
 
         //        是否展示上一页的分页功能
-        if (page ==1) {
-            showPrePage = false;
-        } else {
-            showPrePage = true;
-        }
+        this.showPrePage = page != 1;
 
     //        是否展示下一页
-        if (page == this.TotalPage) {
-            showNextPage = false;
-        } else {
-            showNextPage = true;
-        }
+        this.showNextPage = page != this.TotalPage;
 
         //是否展示返回首页
-        if(showPages.contains(1)){
-            showReturnFirstPage=false;
-        }else {
-            showReturnFirstPage=true;
-        }
+        this.showReturnFirstPage= !showPages.contains(1);
         //是否展示返回最后一页
-        if(showPages.contains(this.TotalPage)){
-            showReturnEndPage=false;
-        }else {
-            showReturnEndPage=true;
-        }
+        this.showReturnEndPage= !showPages.contains(this.TotalPage);
     }
 }
