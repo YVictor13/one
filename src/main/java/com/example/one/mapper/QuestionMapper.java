@@ -1,12 +1,7 @@
 package com.example.one.mapper;
 
-import com.example.one.Dto.QuestionDTO;
 import com.example.one.Model.Question;
-import com.fasterxml.jackson.datatype.jsr310.deser.InstantDeserializer;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -27,4 +22,6 @@ public interface QuestionMapper {
     @Select("SELECT * FROM one.question where id=#{id}")
     Question getById(@Param("id") Integer id);
 
+    @Update("update one.question set title=#{title},description=#{description},gmt_modified =#{gmtModified},tag=#{tag} where id=#{id}")
+    void updatePassage(Question question);
 }

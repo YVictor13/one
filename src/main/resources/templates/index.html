@@ -50,7 +50,7 @@
             </div>
 
 <!--            分页-->
-            <nav aria-label="Page navigation">
+            <nav aria-label="Page navigation" th:if="${Pagination.totalPage>1}">
                 <ul class="pagination">
                     <li>
                         <a th:if="${Pagination.showReturnFirstPage}" href="/?page=1" aria-label="Previous">
@@ -79,9 +79,8 @@
                     </li>
                 </ul>
             </nav>
-
-
-
+            <br>
+            <hr>
         </div>
 
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
