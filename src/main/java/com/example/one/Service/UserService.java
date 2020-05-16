@@ -11,9 +11,26 @@ public class UserService {
     private UserMapper userMapper;
 
 
-    public User UserInforCreateUpdate(User user) {
+    public void createOrUpdate(User user) {
 
-        return null;
+//        快速回退到上一个操作页面快捷键： ctrl + alt + 左右键
+         User dbUser =userMapper.findByAccountId(user.getAccountId());
+         if(null!=dbUser){
+             //更新数据
+             dbUser.setGmtModified(System.currentTimeMillis());
+             dbUser.setAvatarUrl(user.getAvatarUrl());
+             dbUser.setName(user.getName());
+             dbUser.setToken(user.getToken());
+             userMapper.updateInfo(dbUser);
+         }else{
+             //插入数据
+             user.setGmtModified(System.currentTimeMillis());
+             user.setGmtCreate(user.getGmtCreate());
+             userMapper.Insert(user);
+
+         }
+
+
 
     }
 }
