@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!--generatorConfiguration 根节点-->
+<generatorConfiguration>
+    <!--  classPathEntry load jdbc -->
+    <!--    <classPathEntry location="/Program Files/IBM/SQLLIB/java/db2java.zip" />-->
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
+        <!--   数据库连接     -->
+        <jdbcConnection driverClass="org.h2.Driver"
+                        connectionURL="jdbc:h2:~/community2"
+                        userId="sa"
+                        password="123">
+        </jdbcConnection>
+        <!---->
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        <!--生成Java模型-->
+        <!-- windows 用 src\main\java   mac  src/main/java     -->
+        <javaModelGenerator targetPackage="life.majiang.community.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!--xml 放到resource下了-->
+        <sqlMapGenerator targetPackage="mapper"  targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+        <!-- dao 包 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="life.majiang.community.mapper"  targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <table  tableName="user" domainObjectName="User" >
+            <!-- useActualColumnNames  == false(默认false，该配置可以删除) 转换成驼峰标识 -->
+            <!-- <property name="useActualColumnNames" value="false"/>-->
+            <!--  自动生成key          -->
+            <!-- <generatedKey column="ID" sqlStatement="DB2" identity="true" />-->
+            <!-- 重命名列-->
+            <!-- <columnOverride column="DATE_FIELD" property="startDate" />-->
+            <!-- <ignoreColumn column="FRED" />-->
+            <!-- <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />-->
+        </table>
+        <table  tableName="question" domainObjectName="Question" ></table>
+        <table  tableName="comment" domainObjectName="Comment" ></table>
+        <table  tableName="news" domainObjectName="News" ></table>
+        <table  tableName="notification" domainObjectName="Notification" ></table>
+
+
+    </context>
+</generatorConfiguration>
