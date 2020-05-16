@@ -19,8 +19,7 @@ import java.io.Console;
 public class ProfileController {
     @Autowired(required = false)
     private QuestionService questionService;
-    @Autowired(required =false)
-    private UserMapper userMapper;
+
 
     @GetMapping("/profile/{action}")
     public  String profile(@PathVariable(name="action") String action,
@@ -30,20 +29,7 @@ public class ProfileController {
                            @RequestParam(name = "size",defaultValue = "10")Integer size
                            ){
 
-        User user=null;
-        Cookie[] cookies = request.getCookies();
-        if(cookies!=null&&cookies.length!=0){
-            for (Cookie cookie : cookies) {
-                if(cookie.getName().equals("token")){
-                    String token = cookie.getValue();
-                    user = userMapper.findByToken(token);
-                    if(user!=null){
-                        request.getSession().setAttribute("user",user);
-                    }
-                    break;
-                }
-            }
-        }
+        User user =(User)request.getSession().getAttribute("user");
 
         if(user==null){
             return "redirect:/";
