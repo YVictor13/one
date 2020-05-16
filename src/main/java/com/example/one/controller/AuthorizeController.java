@@ -3,7 +3,7 @@ package com.example.one.controller;
 import com.example.one.Dto.AccessTokenDto;
 import com.example.one.Dto.GithubUser;
 import com.example.one.Model.User;
-import com.example.one.mapper.UserMapper;
+import com.example.one.Service.UserService;
 import com.example.one.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,10 +30,8 @@ public class AuthorizeController {
     @Value("${github.redirect.uri}")
     private String redirectUri ;
 
-
-
-    @Autowired(required=false)
-    private UserMapper userMapper;
+    @Autowired(required = false)
+    private UserService userService;
     @GetMapping("/callback")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
@@ -56,7 +54,7 @@ public class AuthorizeController {
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             user.setAvatarUrl(githubUser.getAvatarUrl());
-            userMapper.Insert(user);
+            userService.UserInforCreateUpdate(user);
 //            将token加入到cookie中
             response.addCookie(new Cookie("token",token));
             return "redirect:/";
