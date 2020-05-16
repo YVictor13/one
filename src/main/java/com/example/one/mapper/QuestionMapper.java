@@ -24,6 +24,7 @@ public interface QuestionMapper {
     List<Question> profileList(@Param(value = "id") Integer id,@Param(value = "offset") Integer offset, @Param(value = "size") Integer size);
     @Select("SELECT COUNT(1) FROM one.question where creator=#{id}")
     Integer profileCount(@Param(value = "id")Integer id);
+    @Select("SELECT * FROM one.question where id=#{id}")
+    Question getById(@Param("id") Integer id);
 
-    QuestionDTO geiById(Integer id);
 }
