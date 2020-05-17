@@ -51,3 +51,11 @@ body{
     color:#c0c0c0 ;
     font-size: 13px;
 }
+.jumbotron{
+    margin:100px;
+    background-color: #dddddd;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}

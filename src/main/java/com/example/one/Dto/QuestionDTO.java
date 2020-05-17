@@ -1,11 +1,11 @@
 package com.example.one.Dto;
 
-import com.example.one.Model.User;
+import com.example.one.model.User;
 import lombok.Data;
 
 @Data
 public class QuestionDTO {
-    private Integer id;
+    private Long id;
     private String title;
     private String description;
     private String  tag;
@@ -16,6 +16,4 @@ public class QuestionDTO {
     private Integer commentCount;
     private Integer viewCount;
     private User user;
-
-
 }

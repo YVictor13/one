@@ -2,7 +2,7 @@ package com.example.one.controller;
 
 import com.example.one.Dto.AccessTokenDto;
 import com.example.one.Dto.GithubUser;
-import com.example.one.Model.User;
+import com.example.one.model.User;
 import com.example.one.Service.UserService;
 import com.example.one.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
