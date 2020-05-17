@@ -2,6 +2,8 @@ package com.example.one.Service;
 
 import com.example.one.Dto.PaginationDTO;
 import com.example.one.Dto.QuestionDTO;
+import com.example.one.exception.CustomizeErrorCode;
+import com.example.one.exception.CustomizeException;
 import com.example.one.model.Question;
 import com.example.one.model.QuestionExample;
 import com.example.one.model.User;
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.one.exception.CustomizeErrorCode.QUESTION_NOT_FOUND;
 
 @Service
 public class QuestionService {
@@ -89,6 +93,9 @@ public class QuestionService {
     public QuestionDTO getById(Long id) {
 
         Question question = questionMapper.selectByPrimaryKey(id);
+        if(question ==null){
+            throw new CustomizeException(QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
         User user = userMapper.selectByPrimaryKey(question.getCreator());
@@ -115,7 +122,11 @@ public class QuestionService {
             QuestionExample questionExample = new QuestionExample();
             questionExample.createCriteria()
                     .andIdEqualTo(question.getId());
-            questionMapper.updateByExampleSelective(updateQuestion,questionExample);
+            int isUpdate= questionMapper.updateByExampleSelective(updateQuestion,questionExample);
+            if(isUpdate!=1){
+                throw new CustomizeException(QUESTION_NOT_FOUND);
+            }
+
         }
     }
 
