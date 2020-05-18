@@ -31,7 +31,7 @@ public class UserService {
 //             dbUser.setAvatarUrl(user.getAvatarUrl());
 //             dbUser.setName(user.getName());
 //             dbUser.setToken(user.getToken());
-             UserExample example =new UserExample();
+            UserExample example =new UserExample();
             example.createCriteria()
                      .andIdEqualTo(dbUser.getId());
              User updateUser = new User();

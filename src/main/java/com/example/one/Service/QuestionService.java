@@ -2,19 +2,18 @@ package com.example.one.Service;
 
 import com.example.one.Dto.PaginationDTO;
 import com.example.one.Dto.QuestionDTO;
-import com.example.one.exception.CustomizeErrorCode;
 import com.example.one.exception.CustomizeException;
+import com.example.one.mapper.ExpendMapper;
 import com.example.one.model.Question;
 import com.example.one.model.QuestionExample;
 import com.example.one.model.User;
 import com.example.one.mapper.QuestionMapper;
 import com.example.one.mapper.UserMapper;
-import com.example.one.model.UserExample;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +27,9 @@ public class QuestionService {
 
     @Autowired(required = false)
     private UserMapper userMapper;
+
+    @Autowired(required = false)
+    private ExpendMapper expendMapper;
 
 
 
@@ -109,11 +111,13 @@ public class QuestionService {
             //创建插入数据
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
+            question.setCommentCount(0);
+            question.setViewCount(0);
+            question.setLikeCount(0);
             questionMapper.insert(question);
         }else{
             //数据已经存在，则更新数据
-//            question.setGmtModified(question.getGmtCreate());
-
+            //question.setGmtModified(question.getGmtCreate());
             Question updateQuestion = new Question();
             updateQuestion.setGmtModified(System.currentTimeMillis());
             updateQuestion.setTitle(question.getTitle());
@@ -130,4 +134,44 @@ public class QuestionService {
         }
     }
 
+    public void incView(Long id) {
+//        Question question = questionMapper.selectByPrimaryKey(id);
+//        Question UpdateQuestion = new Question();
+//        UpdateQuestion.setViewCount(question.getViewCount()+1);
+//        QuestionExample questionExample = new QuestionExample();
+//        questionExample.createCriteria()
+//                .andIdEqualTo(id);
+//        questionMapper.updateByExampleSelective(UpdateQuestion,questionExample);
+             Question record = new Question();
+             record.setViewCount(1);
+             record.setId(id);
+             expendMapper.incViewCount(record);
+    }
 }
+
+//    alter table COMMENT
+//        add id long auto_increment;
+//
+//        alter table COMMENT
+//        add parent_id long not null;
+//
+//        alter table COMMENT
+//        add type int not null;
+//
+//        alter table COMMENT
+//        add commentator int not null;
+//
+//        alter table COMMENT
+//        add gmt_create bigint not null;
+//
+//        alter table COMMENT
+//        add gmt_modified bigint not null;
+//
+//        alter table COMMENT
+//        add like_count bigint default 0 not null;
+//
+//        alter table COMMENT
+//        add constraint COMMENT_pk
+//        primary key (id);
+
+

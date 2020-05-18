@@ -1,4 +1,5 @@
 create table question
+create table question
 (
     id BIGINT auto_increment,
     title VARCHAR(50),
@@ -6,11 +7,12 @@ create table question
     gmt_create BIGINT,
     gmt_modified BIGINT,
     creator BIGINT,
-    comment_count int default 0,
-    view_count int default 0,
-    like_count int default 0,
+    comment_count int DEFAULT 0 NOT NULL,
+    view_count int DEFAULT 0 NOT NULL,
+    like_count int DEFAULT 0 NOT NULL,
     tag VARCHAR(20),
     constraint question_pk
         primary key (id)
 );
--- comment on table question is '问题表';
+
+comment on table question is '问题表';
