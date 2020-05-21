@@ -59,7 +59,7 @@ public class CustomizeErrorController implements ErrorController {
             model.addAttribute("Errormessage","估计不止我知道这个请求的是错误的，你也知道吧！！");
         }
         if (status.is5xxServerError()){
-            model.addAttribute("Errormessage","页面加载错误，估计服务器下班了！！");
+            model.addAttribute("Errormessage","未登陆，无法请求资源！！！");
         }
         return  new ModelAndView("error");
     }

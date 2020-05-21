@@ -24,7 +24,7 @@ public class CustomizeExceptionHandler {
     Object handle(HttpServletRequest request, Throwable ex, Model model, HttpServletResponse response){
         String contentType=request.getParameter("Content-Type");
         if("application/json".equals(contentType)){
-            ResultDTO resultDTO;
+                ResultDTO resultDTO;
             if(ex instanceof CustomizeException){
                 resultDTO= ResultDTO.errorOf((CustomizeException)ex);
             }else{

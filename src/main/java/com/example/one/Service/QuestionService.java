@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.one.exception.CustomizeErrorCode.NO_LOGIN;
 import static com.example.one.exception.CustomizeErrorCode.QUESTION_NOT_FOUND;
 
 @Service
@@ -49,6 +50,9 @@ public class QuestionService {
         List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question : questions) {
             User user= userMapper.selectByPrimaryKey(question.getCreator());
+            if(user==null){
+                throw new CustomizeException(NO_LOGIN);
+            }
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);
             questionDTO.setUser(user);
@@ -83,6 +87,9 @@ public class QuestionService {
 //        List<Question> questions = questionMapper.profileList(id,offset,size);
         for (Question question : questions) {
             User user= userMapper.selectByPrimaryKey(question.getCreator());
+            if(user==null){
+                throw new CustomizeException(NO_LOGIN);
+            }
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);
             questionDTO.setUser(user);
@@ -102,6 +109,9 @@ public class QuestionService {
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
         User user = userMapper.selectByPrimaryKey(question.getCreator());
+        if(user==null){
+            throw new CustomizeException(NO_LOGIN);
+        }
         questionDTO.setUser(user);
         return questionDTO;
     }
