@@ -13,6 +13,16 @@
 
 
 </head>
+<script type="application/javascript">
+    window.onload = function () {
+        const closable = window.localStorage.getItem("closable");
+        if (closable === "true"){
+            window.close();
+            window.localStorage.removeItem("closable")
+        }
+    }
+</script>
+
 <body>
 <!--导航菜单-->
 <div th:insert="navigation::nav"></div>

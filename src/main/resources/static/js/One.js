@@ -18,7 +18,7 @@ function Post() {
                    var isAccepted = confirm(response.message);
                    if (isAccepted){
                         window.open("http://github.com/login/oauth/authorize?client_id=b3b546e022ca3539a8bb&redirect_url=http://localhost:8080/callback&scope=user&state=1");
-                        window.localStorage.setItem("closeable",true);
+                        window.localStorage.setItem("closable",true);
                    }
                 }else{
                     alert(response.message);

@@ -67,3 +67,17 @@ body{
     position: relative;
     left: 90%;
 }
+.comment-sp{
+    margin-top: 0;
+}
+.comment-menu{
+    color: #999999;
+}
+.comment-menu .icon{
+    margin-left: 10px;
+    font-size: 15px;
+    cursor:pointer;
+}
+.comment-menu .icon:hover{
+    color: #266fff;
+}
