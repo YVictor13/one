@@ -9,6 +9,7 @@
     <script src="/js/jquery-3.5.0.min.js"></script>
     <script src="/js/bootbox.min.js" text="application/javascript"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/One.js" text="application/javascript"></script>
 
 </head>
 <body>
@@ -49,8 +50,9 @@
                                     <h5 th:text="${question.user.name}" style="color: #2aabd2"></h5>
                                 </div>
                             </div>
+                            <input type="hidden" id="input_id" th:text="${question.id}">
                             <textarea class="form-control comment" rows="10"></textarea>
-                            <button type="button" class="btn btn-success comment-btn">评论</button>
+                            <button type="button" class="btn btn-success comment-btn" onclick="Post()">评论</button>
                         </div>
 
         </div>
