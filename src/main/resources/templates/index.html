@@ -48,9 +48,10 @@
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading">
-                        <a th:href="@{'/question/'+${question.id}}"  th:text="${question.title}" onclick="question()"></a>
+                        <a th:href="@{'/question/'+${question.id}}"  th:text="${question.title}"></a>
                     </h4>
-                    <span th:text="${question.getDescription()}"></span>
+                    <div th:text="${question.description}"></div>
+<!--                    <span th:text="${question.description}"></span>-->
                    <br>
                     <span class="text-descripte">
                         <span th:text="${question.commentCount}"></span>个回复  ·
@@ -58,6 +59,7 @@
                         <span th:text="${#dates.format(question.gmtCreate,' yyyy-MM-dd HH:mm')}"></span>
                     </span>
                 </div>
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-sp">
             </div>
 
 <!--            分页-->
