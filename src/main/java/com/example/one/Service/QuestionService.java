@@ -4,11 +4,11 @@ import com.example.one.Dto.PaginationDTO;
 import com.example.one.Dto.QuestionDTO;
 import com.example.one.exception.CustomizeException;
 import com.example.one.mapper.ExpendMapper;
+import com.example.one.mapper.QuestionMapper;
+import com.example.one.mapper.UserMapper;
 import com.example.one.model.Question;
 import com.example.one.model.QuestionExample;
 import com.example.one.model.User;
-import com.example.one.mapper.QuestionMapper;
-import com.example.one.mapper.UserMapper;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,19 +34,20 @@ public class QuestionService {
 
 
     public PaginationDTO List(Integer page, Integer size) {
-        List<QuestionDTO> questionDTOList = new ArrayList<>();
+
         PaginationDTO paginationDTO = new PaginationDTO();
         Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
         paginationDTO.setPagination(totalCount,page,size);
         //size(page-1)
         Integer offset = size*(paginationDTO.getCurrentPage()-1);
 //        List<Question> questions = questionMapper.selectByExample(offset,size);
-
-        List<Question> questions = questionMapper.selectByExampleWithRowbounds(new QuestionExample(),
+        QuestionExample example = new QuestionExample();
+        example.setOrderByClause("gmt_create desc");
+        List<Question> questions = questionMapper.selectByExampleWithRowbounds(example,
                 new RowBounds(offset, size));
+
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
         for (Question question : questions) {
-
-
             User user= userMapper.selectByPrimaryKey(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question,questionDTO);

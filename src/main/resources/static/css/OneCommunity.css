@@ -59,3 +59,11 @@ body{
     justify-content: center;
     align-content: center;
 }
+.comment{
+    margin-bottom: 10px;
+}
+
+.comment-btn{
+    position: relative;
+    left: 90%;
+}

@@ -1,7 +1,7 @@
 package com.example.one.interceptors;
 
-import com.example.one.model.User;
 import com.example.one.mapper.UserMapper;
+import com.example.one.model.User;
 import com.example.one.model.UserExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

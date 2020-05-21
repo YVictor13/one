@@ -2,8 +2,8 @@ package com.example.one.controller;
 
 import com.example.one.Dto.AccessTokenDto;
 import com.example.one.Dto.GithubUser;
-import com.example.one.model.User;
 import com.example.one.Service.UserService;
+import com.example.one.model.User;
 import com.example.one.provider.GithubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,6 +45,7 @@ public class AuthorizeController {
         accesstokendto.setState(state);
         String accessToken = githubProvider.getAccessToken(accesstokendto);
         GithubUser githubUser = githubProvider.getUser(accessToken);
+
         if(githubUser!=null){
             User user = new User();
             user.setName(githubUser.getName());
@@ -58,9 +59,8 @@ public class AuthorizeController {
             userService.createOrUpdate(user);
 //            将token加入到cookie中
             response.addCookie(new Cookie("token",token));
+//            request.getSession().setAttribute("user",user);
             return "redirect:/";
-
-
         }else {
             //            登录失败，重新登录
             return "redirect:/";

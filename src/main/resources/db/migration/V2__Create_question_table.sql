@@ -1,5 +1,4 @@
 create table question
-create table question
 (
     id BIGINT auto_increment,
     title VARCHAR(50),

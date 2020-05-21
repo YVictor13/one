@@ -2,7 +2,6 @@ package com.example.one.controller;
 
 import com.example.one.Dto.QuestionDTO;
 import com.example.one.Service.QuestionService;
-import com.example.one.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
