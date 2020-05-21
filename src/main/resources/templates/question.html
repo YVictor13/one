@@ -43,34 +43,37 @@
 
                             <!--            回复列表-->
 
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="media">
+                    <h4>
+                        <span th:text="${question.commentCount}"></span>个回复
+                    </h4>
+                </div>
+            </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:each="comment:${comments}">
                             <div class="media">
-                                <h4>
-                                    <span th:text="${question.commentCount}"></span>个回复
-                                </h4>
                                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-sp">
                                 <div class="media-left media-middle">
-                                    <img class="media-object img-circle" th:src="${question.user.avatarUrl}" alt="图片">&nbsp;
+                                    <img class="media-object img-circle" th:src="${comment.user.avatarUrl}" alt="图片">&nbsp;
                                 </div>
                                 <div class="media-body">
-                                    <h5 th:text="${question.user.name}" style="color: #2aabd2"></h5>
+                                    <h5 th:text="${comment.user.name}" style="color: #2aabd2"></h5>
                                 </div>
-                                <div>我是回复信息</div>
+                                <div th:text="${comment.content}"></div>
                                 <div class="comment-menu">
                                     <span class="icon">
                                         <span class="glyphicon glyphicon-thumbs-up"></span>
-                                        <span th:text="${question.likeCount}"></span>
+                                        <span th:text="${comment.likeCount}"></span>
                                     </span>
-
                                     <span style="margin-left: 12px;" class="icon">
                                         <span class="glyphicon glyphicon-comment"></span>
-                                        <span th:text="${question.commentCount}"></span>
+                                        <span th:text="${comment.commentCount}"></span>
                                     </span>
-                                    <span style="position: relative;left: 80%;" th:text="${#dates.format(question.gmtCreate,' yyyy-MM-dd')}"></span>
+                                    <span style="position: relative;left: 80%;" th:text="${#dates.format(comment.gmtCreate,' yyyy-MM-dd')}"></span>
                                 </div>
                             </div>
-
-
+                        </div>
 
                             <!--回复输入框-->
                             <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -87,7 +90,7 @@
                                 <textarea class="form-control comment" rows="10" id="comment_id"></textarea>
                                 <button type="button" class="btn btn-success comment-btn" onclick="Post()">评论</button>
                             </div>
-                        </div>
+
         </div>
         <!--        -->
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
