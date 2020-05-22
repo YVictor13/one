@@ -82,3 +82,16 @@ body{
 .comment-menu .icon:hover{
     color: #266fff;
 }
+.comment-bord{
+    border: 1px solid #eeeeee;
+    margin-top:10px;
+    padding-top: 10px;
+    border-radius: 4%;
+    margin-bottom: 10px;
+}
+.request-btn{
+    position:relative;
+    left: 80%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}

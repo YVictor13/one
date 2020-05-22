@@ -11,7 +11,6 @@ import com.example.one.mapper.UserMapper;
 import com.example.one.model.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,12 +62,16 @@ public class CommentService {
         }
     }
 
-    public List<CommentDTO> ListByQuestionId(Long id) {
+
+    //查看一个方法或者类的依赖的快捷键： alt + F7
+    public List<CommentDTO> listByTargetId(Long id, CommentTypeEnum type) {
 //        抽取变量的快捷键： ctrl + Alt + v
+        //抽取参数的快捷键：ctrl + alt + p
+        //抽取方法：ctrl +alt = m
         CommentExample commentExample = new CommentExample();
         commentExample.createCriteria()
                 .andParentIdEqualTo(id)
-                .andTypeEqualTo(CommentTypeEnum.QUESTION.getType());
+                .andTypeEqualTo(type.getType());
         //按照gmt_create进行排序
         commentExample.setOrderByClause("gmt_create desc");
         List<Comment> comments = commentMapper.selectByExample(commentExample);

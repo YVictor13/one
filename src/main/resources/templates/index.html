@@ -40,14 +40,14 @@
             <!--/*@thymesVar id="questions" type=""*/-->
             <!--/*@thymesVar id="questions" type=""*/-->
             <div class="media" th:each="question:${Pagination.questions}">
-                <div class="media-left media-middle">
+                <div class="media-left">
                     <a href="#">
                         <!--/*@thymesVar id="user" type=""*/-->
                         <img class="media-object img-circle" th:src="${question.user.avatarUrl}" alt="图片">
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading">
+                    <h4 class="media-heading media-middle">
                         <a th:href="@{'/question/'+${question.id}}"  th:text="${question.title}"></a>
                     </h4>
                     <div th:text="${question.description}"></div>

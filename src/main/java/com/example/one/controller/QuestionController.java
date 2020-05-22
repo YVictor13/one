@@ -4,6 +4,7 @@ import com.example.one.Dto.CommentDTO;
 import com.example.one.Dto.QuestionDTO;
 import com.example.one.Service.CommentService;
 import com.example.one.Service.QuestionService;
+import com.example.one.enums.CommentTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +25,7 @@ public class QuestionController {
                            Model model){
         //        获取用户头像
         QuestionDTO questionDTO = questionService.getById(id);
-        List<CommentDTO> commentDTOList = commentService.ListByQuestionId(id);
+        List<CommentDTO> commentDTOList = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
         //        增加阅读数
         questionService.incView(id);
         model.addAttribute("question",questionDTO);

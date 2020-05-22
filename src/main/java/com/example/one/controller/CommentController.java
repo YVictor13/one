@@ -1,19 +1,20 @@
 package com.example.one.controller;
 
 import com.example.one.Dto.CommentCreateDTO;
+import com.example.one.Dto.CommentDTO;
 import com.example.one.Dto.ResultDTO;
 import com.example.one.Service.CommentService;
+import com.example.one.enums.CommentTypeEnum;
 import com.example.one.exception.CustomizeErrorCode;
 import com.example.one.model.Comment;
 import com.example.one.model.User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class CommentController {
@@ -41,6 +42,15 @@ public class CommentController {
         comment.setCommentCount(0L);
         comment.setLikeCount(0L);
         commentService.insert(comment);
-        return ResultDTO.okOf();
+        return ResultDTO .okOf();
     }
+
+    //整体修改一个方法或者变量的快捷键： shift + F6
+    @ResponseBody
+    @RequestMapping(value = "/comment/{id}",method = RequestMethod.GET)
+    public ResultDTO<List> comments(@PathVariable(name = "id") Long id){
+        List<CommentDTO> commentDTOList = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
+        return ResultDTO.okOfComment(commentDTOList);
+    }
+
 }

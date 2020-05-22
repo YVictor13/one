@@ -1,3 +1,5 @@
+
+//提交回复
 function Post() {
     var questionId = $('#input_id').val();
     var commentTxt =$('#comment_id').val();
@@ -33,4 +35,24 @@ function Post() {
         },
         dataType:"json"
     });
+}
+
+
+//显示二级回复
+function collapseComments(e) {
+    let id =e.getAttribute("data-id");
+    var comments =$("#comment-"+id);
+    comments.toggleClass("in");
+    // //获取一下二级评论展开状态
+    // var collapse = e.getAttribute("data-collapse");
+    // if (collapse){
+    //     comments.hasClass("in");
+    //     e.removeAttribute("data-collapse");
+    // }else{
+    //     //展开二级评论
+    //     comments.addClass("in");
+    //     //标记二级评论状态
+    //     e.setAttribute("data-collapse","in");
+    // }
+
 }
