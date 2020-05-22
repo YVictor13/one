@@ -26,10 +26,13 @@ public class QuestionController {
         //        获取用户头像
         QuestionDTO questionDTO = questionService.getById(id);
         List<CommentDTO> commentDTOList = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
+//        List<CommentDTO> comment2DTOList = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
+
         //        增加阅读数
         questionService.incView(id);
         model.addAttribute("question",questionDTO);
         model.addAttribute("comments",commentDTOList);
+//        model.addAttribute("comment2s",comment2DTOList);
         return "question";
     }
 }

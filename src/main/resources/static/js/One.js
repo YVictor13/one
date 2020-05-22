@@ -3,7 +3,11 @@
 function Post() {
     var questionId = $('#input_id').val();
     var commentTxt =$('#comment_id').val();
-    if (!commentTxt){
+    commentToTarget(questionId,1,commentTxt);
+}
+
+function commentToTarget(targetId,type,content) {
+    if (!content){
         alert("回复内容为空！！！！");
         return;
     }
@@ -12,9 +16,9 @@ function Post() {
         url:"/comment",
         contentType:'application/json',
         data:JSON.stringify({
-            "parentId":questionId,
-            "content":commentTxt,
-            "type":1
+            "parentId":targetId,
+            "content":content,
+            "type":type
         }),
         success:function (response) {
             if(response.code === 200){
@@ -22,11 +26,11 @@ function Post() {
                 // $("#comment_section").hide();
             }else{
                 if (response.code === 200){
-                   var isAccepted = confirm(response.message);
-                   if (isAccepted){
+                    var isAccepted = confirm(response.message);
+                    if (isAccepted){
                         window.open("http://github.com/login/oauth/authorize?client_id=b3b546e022ca3539a8bb&redirect_url=http://localhost:8080/callback&scope=user&state=1");
                         window.localStorage.setItem("closable",true);
-                   }
+                    }
                 }else{
                     alert(response.message);
                 }
@@ -35,6 +39,20 @@ function Post() {
         },
         dataType:"json"
     });
+
+}
+
+function comment(e) {
+    var id =  e.getAttribute("data-id");
+    var content = $('#input-'+id).val();
+    commentToTarget(id,2,content);
+}
+
+//取消评论
+function close(e) {
+    let id =e.getAttribute("data-id");
+    var comments =$("#comment-"+id);
+    comments.removeClass("in");
 }
 
 
@@ -42,17 +60,47 @@ function Post() {
 function collapseComments(e) {
     let id =e.getAttribute("data-id");
     var comments =$("#comment-"+id);
-    comments.toggleClass("in");
-    // //获取一下二级评论展开状态
-    // var collapse = e.getAttribute("data-collapse");
-    // if (collapse){
-    //     comments.hasClass("in");
-    //     e.removeAttribute("data-collapse");
+    // // comments.toggleClass("in");
+    // if (comments.hasClass("in")){
+    //     comments.removeClass("in");
     // }else{
-    //     //展开二级评论
-    //     comments.addClass("in");
-    //     //标记二级评论状态
-    //     e.setAttribute("data-collapse","in");
+    //     $.getJSON("/comment/"+id,function (data) {
+    //         console.log(data);
+    //         comments.addClass("in");
+    //     });
     // }
 
+    //获取一下二级评论展开状态
+    var collapse = e.getAttribute("data-collapse");
+    if (collapse){
+        comments.removeClass("in");
+        e.removeAttribute("data-collapse");
+        e.classList.remove("active");
+    }else{
+
+        $.getJSON("/comment/"+id,function (data) {
+
+                    console.log(data);
+                    var items = [];
+                   var commentBody = $("#comment-body-"+id);
+            $.each(data.data,function (comment) {
+               var c =  $("<div/>",{
+                    "class":"col-lg-12 col-md-12 col-sm-12 col-xs-12",
+                    "id":"comment-"+id,
+                    html:comment.content
+                });
+                items.push(c);
+            });
+            $("<div/>",{
+                "class":"col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse comment-bord",
+                "id":"comment-"+id,
+                html:items.join("")
+            }).appendTo(commentBody);
+            //展开二级评论
+            comments.addClass("in");
+            //标记二级评论状态
+            e.setAttribute("data-collapse","in");
+            e.classList.add("active");
+        });
+    }
 }

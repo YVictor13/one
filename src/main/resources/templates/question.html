@@ -60,7 +60,7 @@
                     <div class="media-left">
                         <img class="media-object img-circle" th:src="${comment.user.avatarUrl}" alt="图片">&nbsp;
                     </div>
-                    <div class="media-body">
+                    <div class="media-body" th:id="{'comment-body-'+comment.id}">
                         <h5 th:text="${comment.user.name}" style="color: #2aabd2"></h5>
                         <div th:text="${comment.content}"></div>
                         <div class="comment-menu">
@@ -76,26 +76,27 @@
                                   th:text="${#dates.format(comment.gmtCreate,' yyyy-MM-dd')}"></span>
 
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 collapse comment-bord" th:id="${'comment-'+comment.id}" >
-
                                 <!--                            二级回复-->
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:each="comment:${comments}">
                                     <div class="media">
                                         <div class="media-left">
-                                            <img class="media-object img-circle" th:src="${comment.user.avatarUrl}" alt="图片">&nbsp;
+                                            <img class="media-object img-circle" th:src="${comment.user.avatarUrl}"
+                                                 alt="图片">&nbsp;
                                         </div>
                                         <div class="media-body">
                                             <h5 th:text="${comment.user.name}" style="color: #2aabd2"></h5>
                                             <div th:text="${comment.content}"></div>
-                                            <span style="position: relative;left: 81.2%;" th:text="${#dates.format(comment.gmtCreate,' yyyy-MM-dd')}"></span>
+                                            <span style="position: relative;left: 81.2%;"
+                                                  th:text="${#dates.format(comment.gmtCreate,' yyyy-MM-dd')}"></span>
                                         </div>
                                         <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-sp">
-
                                     </div>
                                 </div>
-                                <input type="text" class="form-control" placeholder="评论一下吧">
-                                <button type="button" class="btn btn-info request-btn">回复</button>
-                                <button type="button" class="btn btn-default request-btn">取消</button>
-
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <input type="text" class="form-control" placeholder="评论一下吧" th:id="${'input-'+comment.id}">
+                                    <button type="button" class="btn btn-info request-btn" onclick="comment(this)" th:data-id="${comment.id}">回复</button>
+                                    <button type="button" class="btn btn-default request-btn"  onclick="close()">取消</button>
+                                </div>
                                 <!--                            -->
                             </div>
                         </div>
