@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>ONE社区</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/OneCommunity.css">
@@ -16,7 +16,7 @@
 <script type="application/javascript">
     window.onload = function () {
         const closable = window.localStorage.getItem("closable");
-        if (closable === "true"){
+        if (closable === "true") {
             window.close();
             window.localStorage.removeItem("closable")
         }
@@ -35,7 +35,7 @@
 
             <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 发现</h2>
             <hr/>
-<!--            问题列表-->
+            <!--            问题列表-->
 
             <!--/*@thymesVar id="questions" type=""*/-->
             <!--/*@thymesVar id="questions" type=""*/-->
@@ -48,11 +48,12 @@
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading media-middle">
-                        <a th:href="@{'/question/'+${question.id}}"  th:text="${question.title}"></a>
+                        <a th:href="@{'/question/'+${question.id}}" th:text="${question.title}"></a>
                     </h4>
-                    <div th:text="${question.description}"></div>
-<!--                    <span th:text="${question.description}"></span>-->
-                   <br>
+                    <div th:text="${question.description}">
+                    </div>
+                    <!--                    <span th:text="${question.description}"></span>-->
+                    <br>
                     <span class="text-descripte">
                         <span th:text="${question.commentCount}"></span>个回复  ·
                         <span th:text="${question.viewCount}"></span>次浏览  ·
@@ -62,7 +63,7 @@
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-sp">
             </div>
 
-<!--            分页-->
+            <!--            分页-->
             <nav aria-label="Page navigation" th:if="${Pagination.totalPage>1}">
                 <ul class="pagination">
                     <li>
@@ -71,22 +72,25 @@
                         </a>
                     </li>
                     <li>
-                        <a th:if="${Pagination.showPrePage}" th:href="@{/(page=${Pagination.currentPage-1})}" aria-label="Previous">
+                        <a th:if="${Pagination.showPrePage}" th:href="@{/(page=${Pagination.currentPage-1})}"
+                           aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <li th:each="page:${Pagination.showPages}" th:class="${Pagination.currentPage==page}?active:''">
-                        <a th:href="@{/(page=${page})}" th:text="${page}" ></a>
+                        <a th:href="@{/(page=${page})}" th:text="${page}"></a>
                     </li>
 
                     <li>
-                        <a th:if="${Pagination.showNextPage}" th:href="@{/(page=${Pagination.currentPage+1})}" aria-label="Next">
+                        <a th:if="${Pagination.showNextPage}" th:href="@{/(page=${Pagination.currentPage+1})}"
+                           aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                     <li>
                         <!--/*@thymesVar id="TotalPage" type=""*/-->
-                        <a th:if="${Pagination.showReturnEndPage}" th:href="@{/(page=${Pagination.totalPage})}" aria-label="Next">
+                        <a th:if="${Pagination.showReturnEndPage}" th:href="@{/(page=${Pagination.totalPage})}"
+                           aria-label="Next">
                             <span aria-hidden="true">&gt;&gt;</span>
                         </a>
                     </li>
@@ -98,7 +102,7 @@
 
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <h3>热门换题</h3>
-           想你所想，做你所不敢做，所谓引领。
+            想你所想，做你所不敢做，所谓引领。
         </div>
     </div>
 
