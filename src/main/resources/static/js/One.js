@@ -92,10 +92,11 @@ function collapseComments(e) {
                 // console.log(data.listdata);
                 $.each(data.listdata.reverse(), function (index, comments) {
 
-                    // let timeElement =$("<span/>",{
-                    //     "style":"position: relative;left: 81.2%;",
-                    //     "text":#dates.format(comment.gmtCreate,' yyyy-MM-dd')
-                    // });
+                    let timeElement =$("<span/>",{
+                        "style":"position: relative;left: 92%;",
+                        "text":moment(comments.gmtCreate).format('YYYY-MM-DD')
+
+                    });
                     let hrElement =$("<hr/>",{
                         "class":"col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-sp"
                     });
@@ -137,7 +138,7 @@ function collapseComments(e) {
                     mediaElement.append(hrElement);
                     mediaBodyElement.append(H5Element);
                     mediaBodyElement.append(contentElement);
-                    // mediaBodyElement.append(timeElement);
+                    mediaBodyElement.append(timeElement);
                 });
             });
         }
