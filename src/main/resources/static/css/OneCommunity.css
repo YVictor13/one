@@ -95,3 +95,13 @@ body{
     margin-top: 20px;
     margin-bottom: 10px;
 }
+.tag:hover{
+    background-color: black;
+}
+#related{
+    text-decoration: none;
+}
+#related:hover{
+    color: #9acfea;
+    cursor: pointer;
+}

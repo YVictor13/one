@@ -25,6 +25,7 @@ public class QuestionController {
                            Model model){
         //        获取用户头像
         QuestionDTO questionDTO = questionService.getById(id);
+        List<QuestionDTO> relatedQuestions = questionService.selectRelated(questionDTO);
         List<CommentDTO> commentDTOList = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
 //        List<CommentDTO> comment2DTOList = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
 
@@ -32,7 +33,7 @@ public class QuestionController {
         questionService.incView(id);
         model.addAttribute("question",questionDTO);
         model.addAttribute("comments",commentDTOList);
-//        model.addAttribute("comment2s",comment2DTOList);
+        model.addAttribute("relatedQuestions",relatedQuestions);
         return "question";
     }
 }
