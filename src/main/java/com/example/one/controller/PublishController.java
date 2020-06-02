@@ -76,13 +76,13 @@ public class PublishController {
             model.addAttribute("error", "问题描述不能为空！！！");
             return "publish";
         }
-        if (tag == null || tag.equals("")|| tag.equals(" ")) {
+        if (tag == null || tag.equals("") || tag.equals(" ")) {
             model.addAttribute("error", "标签不能为空");
             return "publish";
         }
         String invalid = TagCache.filterInvalid(tag);
         if (StringUtils.isNotBlank(invalid)) {
-            model.addAttribute("error","输入非法标签"+invalid);
+            model.addAttribute("error", "输入非法标签" + invalid);
             return "publish";
         }
         Question question = new Question();
