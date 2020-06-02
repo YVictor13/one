@@ -4,10 +4,7 @@ import com.example.one.Dto.CommentDTO;
 import com.example.one.enums.CommentTypeEnum;
 import com.example.one.exception.CustomizeErrorCode;
 import com.example.one.exception.CustomizeException;
-import com.example.one.mapper.CommentMapper;
-import com.example.one.mapper.ExpendMapper;
-import com.example.one.mapper.QuestionMapper;
-import com.example.one.mapper.UserMapper;
+import com.example.one.mapper.*;
 import com.example.one.model.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +27,8 @@ public class CommentService {
     private ExpendMapper expendMapper;
     @Autowired(required = false)
     private UserMapper userMapper;
+    @Autowired(required = false)
+    private NotificationMapper notificationMapper;
 
     @Transactional
     public void insert(Comment comment) {
