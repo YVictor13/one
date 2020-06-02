@@ -80,7 +80,7 @@ function collapseComments(e) {
     } else {
 
         let commentBody = $("#comment-" + id);
-        if (commentBody.children().length  !==1) {
+        if (commentBody.children().length !== 1) {
             //展开二级评论
             comments.addClass("in");
             //标记二级评论状态
@@ -92,37 +92,37 @@ function collapseComments(e) {
                 // console.log(data.listdata);
                 $.each(data.listdata.reverse(), function (index, comments) {
 
-                    let timeElement =$("<span/>",{
-                        "style":"position: relative;left: 92%;",
-                        "text":moment(comments.gmtCreate).format('YYYY-MM-DD')
+                    let timeElement = $("<span/>", {
+                        "style": "position: relative;left: 92%;",
+                        "text": moment(comments.gmtCreate).format('YYYY-MM-DD')
 
                     });
-                    let hrElement =$("<hr/>",{
-                        "class":"col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-sp"
+                    let hrElement = $("<hr/>", {
+                        "class": "col-lg-12 col-md-12 col-sm-12 col-xs-12 comment-sp"
                     });
 
-                    let contentElement =$("<div/>",{
-                        "text":comments.content
+                    let contentElement = $("<div/>", {
+                        "text": comments.content
                     });
-                    let H5Element =$("<h5/>",{
-                        "style":"color: #2aabd2",
-                        "text":comments.user.name
+                    let H5Element = $("<h5/>", {
+                        "style": "color: #2aabd2",
+                        "text": comments.user.name
                     });
-                    let mediaBodyElement =$("<div/>",{
-                        "class":"media-body"
-                    });
-
-                    let avatarElement =$("<img/>",{
-                        "class":"media-object img-circle",
-                        "src":comments.user.avatarUrl
+                    let mediaBodyElement = $("<div/>", {
+                        "class": "media-body"
                     });
 
-                    let mediaLeftElement =$("<div/>",{
-                        "class":"media-left"
+                    let avatarElement = $("<img/>", {
+                        "class": "media-object img-circle",
+                        "src": comments.user.avatarUrl
                     });
 
-                    let mediaElement =$("<div/>",{
-                        "class":"media"
+                    let mediaLeftElement = $("<div/>", {
+                        "class": "media-left"
+                    });
+
+                    let mediaElement = $("<div/>", {
+                        "class": "media"
                     });
 
 
@@ -149,6 +149,21 @@ function collapseComments(e) {
         e.setAttribute("data-collapse", "in");
         e.classList.add("active");
 
-
     }
+}
+
+function selectTag(value) {
+    let previous = $('#tag').val();
+
+    if (previous.indexOf(value) === -1){
+        if (previous) {
+            $("#tag").val(previous + " " + value);
+        } else {
+            $("#tag").val(value);
+        }
+    }
+}
+
+function inputTag() {
+    $("#select-tags").show();
 }
