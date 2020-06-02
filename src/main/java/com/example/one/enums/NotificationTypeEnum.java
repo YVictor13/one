@@ -1,23 +1,23 @@
 package com.example.one.enums;
 
-public enum NotificationEnum {
+public enum NotificationTypeEnum {
     REPLY_QUESTION(1,"回复了问题"),
     REPLY_COMMENT(2,"回复了评论")
     ;
-    private int status;
+    private int type;
     private String name;
 
-    NotificationEnum(int status, String name) {
-        this.status = status;
+    NotificationTypeEnum(int status, String name) {
+        this.type = status;
         this.name = name;
     }
 
-    public int getStatus() {
-        return status;
+    public int getType() {
+        return type;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setType(int type) {
+        this.type = type;
     }
 
     public String getName() {
