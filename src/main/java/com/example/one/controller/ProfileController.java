@@ -1,10 +1,8 @@
 package com.example.one.controller;
 
-import com.example.one.Dto.NotificationDTO;
 import com.example.one.Dto.PaginationDTO;
 import com.example.one.Service.NotificationService;
 import com.example.one.Service.QuestionService;
-import com.example.one.model.Notification;
 import com.example.one.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 public class ProfileController {

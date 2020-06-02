@@ -2,10 +2,12 @@ package com.example.one.Service;
 
 import com.example.one.Dto.NotificationDTO;
 import com.example.one.Dto.PaginationDTO;
-import com.example.one.Dto.QuestionDTO;
 import com.example.one.mapper.NotificationMapper;
 import com.example.one.mapper.UserMapper;
-import com.example.one.model.*;
+import com.example.one.model.Notification;
+import com.example.one.model.NotificationExample;
+import com.example.one.model.User;
+import com.example.one.model.UserExample;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

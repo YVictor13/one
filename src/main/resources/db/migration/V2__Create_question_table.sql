@@ -1,7 +1,7 @@
 create table question
 (
     id BIGINT auto_increment,
-    title VARCHAR(50),
+    title VARCHAR(100),
     description TEXT,
     gmt_create BIGINT,
     gmt_modified BIGINT,
@@ -9,7 +9,7 @@ create table question
     comment_count int DEFAULT 0 NOT NULL,
     view_count int DEFAULT 0 NOT NULL,
     like_count int DEFAULT 0 NOT NULL,
-    tag VARCHAR(20),
+    tag VARCHAR(100),
     constraint question_pk
         primary key (id)
 );
