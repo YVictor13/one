@@ -25,6 +25,7 @@ public class IndexController {
                         @RequestParam(name = "size",defaultValue = "10")Integer size) {
         //        获取用户头像
         PaginationDTO Pagination = questionService.List(page,size);
+
         model.addAttribute("Pagination",Pagination);
         return "index";
     }

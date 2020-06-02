@@ -7,6 +7,8 @@ create table notification
 	type int,
 	gmt_create bigint not null,
 	status int default 0,
+	NOTIFIER_NAME VARCHAR(100),
+	 OUTER_TITLE VARCHAR(256),
 	constraint notification_pk
 		primary key (id)
 );

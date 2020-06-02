@@ -1,6 +1,8 @@
 package com.example.one.controller;
 
+import com.example.one.Dto.NotificationDTO;
 import com.example.one.Dto.PaginationDTO;
+import com.example.one.Service.NotificationService;
 import com.example.one.Service.QuestionService;
 import com.example.one.model.Notification;
 import com.example.one.model.User;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 public class ProfileController {
@@ -41,9 +44,10 @@ public class ProfileController {
             PaginationDTO paginationDTO = questionService.profileList(user.getId(), page, size);
             model.addAttribute("Pagination",paginationDTO);
         }else if("replies".equals(action)){
+            PaginationDTO paginationDTO  = notificationService.list(user.getId(),page,size);
             model.addAttribute("section","replies");
             model.addAttribute("sectionName","最新回复");
-
+            model.addAttribute(paginationDTO);
         }else if("information".equals(action)){
             model.addAttribute("section","information");
             model.addAttribute("sectionName","我的个人信息");
