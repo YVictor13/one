@@ -152,8 +152,9 @@ function collapseComments(e) {
     }
 }
 
-function selectTag(value) {
+function selectTag(e) {
     let previous = $('#tag').val();
+    let value = e.getAttribute("data-tag");
 
     if (previous.indexOf(value) === -1){
         if (previous) {
