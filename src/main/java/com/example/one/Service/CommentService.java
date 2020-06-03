@@ -55,9 +55,9 @@ public class CommentService {
                 Comment parentComment = commentMapper.selectByPrimaryKey(comment.getParentId());
                 parentComment.setCommentCount(1L);
                 expendMapper.incToCommentCount(parentComment);
-
                 // 创建回复评论通知
-                CreateNotify(comment,dbComment.getCommentator(),commentator.getName(),question.getTitle(), NotificationTypeEnum.REPLY_COMMENT, NotificationStatusEnum.UNREAD,question.getId());
+                CreateNotify(comment, dbComment.getCommentator(), commentator.getName(), question.getTitle(),
+                        NotificationTypeEnum.REPLY_COMMENT, NotificationStatusEnum.UNREAD, question.getId());
             }
 
         } else {
@@ -70,14 +70,20 @@ public class CommentService {
             question.setCommentCount(1);
             expendMapper.incCommentCount(question);
             //            增加问题回复通知功能
-            CreateNotify(comment,question.getCreator(),commentator.getName(), question.getTitle(),NotificationTypeEnum.REPLY_QUESTION, NotificationStatusEnum.UNREAD,question.getId());
-
+            CreateNotify(comment, question.getCreator(), commentator.getName(), question.getTitle(),
+                    NotificationTypeEnum.REPLY_QUESTION, NotificationStatusEnum.UNREAD, question.getId());
         }
     }
 
     // 创建回复评论\问题通知
-    private void CreateNotify(Comment comment, Long receiver,String notifierName, String outerTitle,NotificationTypeEnum notificationTypeEnum,
-                              NotificationStatusEnum notificationStatusEnum,Long outerId) {
+    private void CreateNotify(Comment comment, Long receiver, String notifierName, String outerTitle,
+                              NotificationTypeEnum notificationTypeEnum,
+                              NotificationStatusEnum notificationStatusEnum, Long outerId) {
+        //        当接收人和发通知的人是同一个人接收通知
+        if (receiver == comment.getCommentator()) {
+            return;
+        }
+
         Notification notification = new Notification();
         notification.setGmtCreate(System.currentTimeMillis());
         notification.setType(notificationTypeEnum.getType());

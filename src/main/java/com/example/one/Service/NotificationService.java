@@ -8,10 +8,12 @@ import com.example.one.exception.CustomizeErrorCode;
 import com.example.one.exception.CustomizeException;
 import com.example.one.mapper.NotificationMapper;
 import com.example.one.mapper.UserMapper;
+import com.example.one.model.Comment;
 import com.example.one.model.Notification;
 import com.example.one.model.NotificationExample;
 import com.example.one.model.User;
 import org.apache.ibatis.session.RowBounds;
+import org.h2.engine.Session;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,16 +30,13 @@ public class NotificationService {
     //   分页查找出回复的消息
     public PaginationDTO list(Long id, Integer page, Integer size) {
         PaginationDTO<NotificationDTO> paginationDTO = new PaginationDTO<>();
-
         NotificationExample example = new NotificationExample();
+
         example.createCriteria()
                 .andReceiverEqualTo(id);
         Integer totalCount = (int) notificationMapper.countByExample(example);
-
-
-//        Integer totalCount = questionMapper.profileCount(id);
-
         paginationDTO.setPagination(totalCount, page, size);
+
 
         //size(page-1)
         Integer offset = size * (paginationDTO.getCurrentPage() - 1);
@@ -52,12 +51,12 @@ public class NotificationService {
             return paginationDTO;
         }
         List<NotificationDTO> notificationDTOList = new ArrayList<>();
-
+//        Integer CurrentTotalPage = 0;
         for (Notification notification : notifications) {
-            NotificationDTO notificationDTO = new NotificationDTO();
-            BeanUtils.copyProperties(notification, notificationDTO);
-            notificationDTO.setTypeName(NotificationTypeEnum.nameOfType(notification.getType()));
-            notificationDTOList.add(notificationDTO);
+                NotificationDTO notificationDTO = new NotificationDTO();
+                BeanUtils.copyProperties(notification, notificationDTO);
+                notificationDTO.setTypeName(NotificationTypeEnum.nameOfType(notification.getType()));
+                notificationDTOList.add(notificationDTO);
         }
         paginationDTO.setData(notificationDTOList);
         return paginationDTO;

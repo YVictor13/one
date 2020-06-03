@@ -156,10 +156,10 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment_section">
                 <div class="media">
                     <div class="media-left media-middle">
-                        <img class="media-object img-circle" th:src="${question.user.avatarUrl}" alt="图片">&nbsp;
+                        <img class="media-object img-circle" th:src="${ session.user!= noll ? session.user.avatarUrl : '/images/defaultAvatar.png'}" alt="图片">&nbsp;
                     </div>
                     <div class="media-body">
-                        <h5 th:text="${question.user.name}" style="color: #2aabd2"></h5>
+                        <h5 th:text="${session.user!= noll ? session.user.name :'匿名用户'}" style="color: #2aabd2"></h5>
                     </div>
                 </div>
                 <input type="hidden" id="input_id" th:value="${question.id}">
