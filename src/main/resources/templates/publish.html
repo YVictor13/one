@@ -7,12 +7,14 @@
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/OneCommunity.css">
     <link rel="stylesheet" href="/css/editormd.min.css">
+    <link rel="stylesheet" href="/css/editormd.preview.min.css">
     <script src="/js/jquery-3.5.0.min.js"></script>
     <script src="/js/bootbox.min.js" text="application/javascript"></script>
     <script src="/js/bootstrap.min.js" text="application/javascript"></script>
     <script src="/js/One.js" text="application/javascript"></script>
     <script src="/js/editormd.min.js" text="application/javascript"></script>
-
+    <script src="/js/lib/marked.min.js" text="application/javascript"></script>
+    <script src="/js/lib/prettify.min.js" text="application/javascript"></script>
 
 </head>
 <body>
@@ -46,8 +48,12 @@
                                 path: "/js/lib/",
                                 watch: false,
                                 delay: 0,
-                                placeholder:"请输入内容描述.....",
-                                saveHTMLToTextarea:true
+                                placeholder: "请输入内容描述.....",
+                                saveHTMLToTextarea: true,
+                                emoji: true,
+                                imageUpload: true,
+                                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                                imageUploadURL:"./php/upload.php",
                             });
                         });
                     </script>

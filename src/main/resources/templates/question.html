@@ -6,11 +6,17 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/OneCommunity.css">
+    <link rel="stylesheet" href="/css/editormd.min.css">
+    <link rel="stylesheet" href="/css/editormd.preview.min.css">
     <script src="/js/jquery-3.5.0.min.js"></script>
     <script src="/js/bootbox.min.js" text="application/javascript"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/One.js" text="application/javascript"></script>
     <script src="/js/moment.min.js" text="application/javascript"></script>
+    <script src="/js/editormd.min.js" text="application/javascript"></script>
+    <script src="/js/lib/marked.min.js" text="application/javascript"></script>
+    <script src="/js/lib/prettify.min.js" text="application/javascript"></script>
+
 </head>
 <body>
 <!--导航菜单-->
@@ -32,14 +38,26 @@
                                 阅读数：<span th:text="${question.viewCount}"></span>
                             </span>
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"
-                     style="height: auto;margin-bottom:5px ">
+
+                <!--                内容部分-->
+                <div id="question-view" class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height: auto;margin-bottom:5px ">
+                    <label>
+                            <textarea style="display: none;" th:text="${question.description}">
+                            </textarea>
+                    </label>
                 </div>
+<!--                将markdown文本换化为html内容并显示出现-->
+                <script type="text/javascript">
+                    $(function () {
+                        editormd.markdownToHTML("question-view",{});
+                    });
+                </script>
+
                 <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12"/>
                 <!--                标签-->
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <span th:each="tag:${question.tag.split(' ')}">
-                        <span class="label label-success tag">
+                        <span class="label label-success tag-list">
                             <span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;
                              <span th:text="${tag}"></span>
                         </span>&nbsp;
@@ -192,13 +210,11 @@
 
         </div>
     </div>
-    <!--底部备案号-->
-    <div th:fragment="footer">
-        <div id="footer">CopyRight@copyYangmoyu 黔ICP备20003575号-1</div>
-    </div>
-
 </div>
-
+<!--底部备案号-->
+<div th:fragment="footer">
+    <div id="footer">CopyRight@copyYangmoyu 黔ICP备20003575号-1</div>
+</div>
 
 </body>
 </html>
