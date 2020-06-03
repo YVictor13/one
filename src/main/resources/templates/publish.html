@@ -43,7 +43,11 @@
                             var editor = editormd("question-editor", {
                                 width: "100%",
                                 height: 400,
-                                path: "/js/lib/"
+                                path: "/js/lib/",
+                                watch: false,
+                                delay: 0,
+                                placeholder:"请输入内容描述.....",
+                                saveHTMLToTextarea:true
                             });
                         });
                     </script>
