@@ -14,6 +14,37 @@ public class PaginationDTO<T> {
     private List<Integer> showPages = new ArrayList<>();
     private Integer TotalPage;
 
+    public List<T> getData() {
+        return data;
+    }
+
+    public boolean isShowPrePage() {
+        return showPrePage;
+    }
+
+    public boolean isShowNextPage() {
+        return showNextPage;
+    }
+
+    public boolean isShowReturnFirstPage() {
+        return showReturnFirstPage;
+    }
+
+    public boolean isShowReturnEndPage() {
+        return showReturnEndPage;
+    }
+
+    public Integer getCurrentPage() {
+        return CurrentPage;
+    }
+
+    public List<Integer> getShowPages() {
+        return showPages;
+    }
+
+    public Integer getTotalPage() {
+        return TotalPage;
+    }
 
     public void setPagination(Integer totalCount, Integer page, Integer size) {
 

@@ -1,5 +1,7 @@
 package com.example.one.interceptors;
 
+import com.example.one.Service.NotificationService;
+import com.example.one.mapper.NotificationMapper;
 import com.example.one.mapper.UserMapper;
 import com.example.one.model.User;
 import com.example.one.model.UserExample;
@@ -17,11 +19,15 @@ import java.util.List;
 public class SessionInterceptor implements HandlerInterceptor {
     @Autowired(required = false)
     private UserMapper userMapper;
+    @Autowired(required = false)
+    private NotificationService notificationService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         User user=null;
         Cookie[] cookies = request.getCookies();
+
+
         if(cookies!=null&&cookies.length!=0){
             for (Cookie cookie : cookies) {
                 if(cookie.getName().equals("token")){
@@ -32,7 +38,10 @@ public class SessionInterceptor implements HandlerInterceptor {
                    List<User> users = userMapper.selectByExample(userExample);
 //
                     if(users.size()!=0){
+
                         request.getSession().setAttribute("user",users.get(0));
+                        Long unReadCount = notificationService.unReadCount(users.get(0).getId());
+                        request.getSession().setAttribute("unReadCount",unReadCount);
                     }
                     break;
                 }

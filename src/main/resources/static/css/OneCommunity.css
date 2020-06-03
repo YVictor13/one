@@ -95,7 +95,7 @@ body{
     margin-top: 20px;
     margin-bottom: 10px;
 }
-.tag:hover{
+.tag-list:hover{
     background-color: black;
 }
 #related{

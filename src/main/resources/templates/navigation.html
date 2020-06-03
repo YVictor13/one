@@ -33,7 +33,7 @@
                            style="display: flex;flex-direction: row;align-items: center;justify-content: center;">
                             <span class="glyphicon glyphicon-bell"></span>&nbsp;
                             <span class="badge"
-                                  style="background-color: #c7254e;color: white;font-size: 12px;">42</span>
+                                  style="background-color: #c7254e;color: white;font-size: 12px;" th:if="${session.unReadCount != 0}" th:text="${session.unReadCount}"></span>
                         </a>
                     </li>
                     <li th:if="${session.user !=null}">
