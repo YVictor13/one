@@ -134,4 +134,11 @@ public class CommentService {
         return commentDTOS;
 
     }
+
+    public void incLikeCount(Long id) {
+        Comment record = new Comment();
+        record.setLikeCount(1L);
+        record.setId(id);
+        expendMapper.incLikeCount(record);
+    }
 }

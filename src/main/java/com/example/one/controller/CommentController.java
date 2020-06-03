@@ -4,6 +4,7 @@ import com.example.one.Dto.CommentCreateDTO;
 import com.example.one.Dto.CommentDTO;
 import com.example.one.Dto.ResultDTO;
 import com.example.one.Service.CommentService;
+import com.example.one.Service.QuestionService;
 import com.example.one.enums.CommentTypeEnum;
 import com.example.one.exception.CustomizeErrorCode;
 import com.example.one.model.Comment;
@@ -20,6 +21,9 @@ import java.util.List;
 public class CommentController {
     @Autowired(required = false)
     private CommentService commentService;
+
+    @Autowired(required = false)
+    private QuestionService questionService;
 
     @ResponseBody
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
@@ -51,5 +55,27 @@ public class CommentController {
     public ResultDTO<List> comments(@PathVariable(name = "id") Long id) {
         List<CommentDTO> commentDTOList = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
         return ResultDTO.okOfComment(commentDTOList);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/comment/likeCount/{id}", method = RequestMethod.POST)
+    public Object incLikeCount(@PathVariable(name = "id") Long id, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
+        }
+        commentService.incLikeCount(id);
+        return ResultDTO.okOf();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/question/likeCount/{id}", method = RequestMethod.POST)
+    public Object incQuestionLikeCount(@PathVariable(name = "id") Long id, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
+        }
+        questionService.incLikeCount(id);
+        return ResultDTO.okOf();
     }
 }

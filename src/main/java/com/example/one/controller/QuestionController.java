@@ -27,7 +27,7 @@ public class QuestionController {
         QuestionDTO questionDTO = questionService.getById(id);
         List<QuestionDTO> relatedQuestions = questionService.selectRelated(questionDTO);
         List<CommentDTO> commentDTOList = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
-//        List<CommentDTO> comment2DTOList = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
+        //        List<CommentDTO> comment2DTOList = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
 
         //        增加阅读数
         questionService.incView(id);

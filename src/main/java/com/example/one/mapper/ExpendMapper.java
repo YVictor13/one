@@ -1,5 +1,6 @@
 package com.example.one.mapper;
 
+import com.example.one.Dto.QuestionQueryDTO;
 import com.example.one.model.Comment;
 import com.example.one.model.Question;
 import org.apache.ibatis.annotations.Mapper;
@@ -10,6 +11,8 @@ import java.util.List;
 
 @Mapper
 public interface ExpendMapper {
+
+
     @Update(" update QUESTION set VIEW_COUNT= VIEW_COUNT + #{viewCount}  where ID = #{id}")
     void incViewCount(Question record);
 
@@ -21,4 +24,16 @@ public interface ExpendMapper {
 
     @Select("SELECT * FROM QUESTION WHERE id != #{id} AND tag regexp #{tag}")
     List<Question> selectRelated(Question question);
+
+    @Select("SELECT COUNT(*) FROM QUESTION WHERE title regexp #{search}")
+    Integer countBySearch(QuestionQueryDTO questionQueryDTO);
+
+    @Select("SELECT * FROM QUESTION WHERE title regexp #{search} LIMIT #{page} , #{size}")
+    List<Question> selectBySearch(QuestionQueryDTO questionQueryDTO);
+
+    @Update(" update COMMENT set LIKE_COUNT= LIKE_COUNT + #{likeCount}  where ID = #{id}")
+    void incLikeCount(Comment record);
+
+    @Update(" update QUESTION set LIKE_COUNT= LIKE_COUNT + #{likeCount}  where ID = #{id}")
+    void incQuestionLikeCount(Question record);
 }

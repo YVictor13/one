@@ -1,3 +1,73 @@
+// 问题点赞功能
+
+function collapseQuestionLike(e){
+    let id = e.getAttribute("data-like");
+    console.log(id);
+    likeQUestionCount(id);
+}
+function likeQUestionCount(id) {
+    $.ajax({
+        type: "POST",
+        url: "/question/likeCount/"+id,
+        contentType: 'application/json',
+        data: JSON.stringify({
+            "id": id
+        }),
+        success: function (response) {
+            if (response.code === 200) {
+                window.location.reload();
+            } else {
+                if (response.code === 200) {
+                    var isAccepted = confirm(response.message);
+                    if (isAccepted) {
+                        window.open("http://github.com/login/oauth/authorize?client_id=b3b546e022ca3539a8bb&redirect_url=http://localhost:8080/callback&scope=user&state=1");
+                        window.localStorage.setItem("closable", true);
+                    }
+                } else {
+                    alert(response.message);
+                }
+            }
+        },
+        dataType: "json"
+    });
+}
+
+
+// 评论实现点赞功能
+function collapseCommentLike(e) {
+    let id = e.getAttribute("data-like");
+    console.log(id);
+    likeCommentCount(id);
+}
+
+function likeCommentCount(id) {
+    $.ajax({
+        type: "POST",
+        url: "/comment/likeCount/"+id,
+        contentType: 'application/json',
+        data: JSON.stringify({
+            "id": id
+        }),
+        success: function (response) {
+            if (response.code === 200) {
+                window.location.reload();
+            } else {
+                if (response.code === 200) {
+                    var isAccepted = confirm(response.message);
+                    if (isAccepted) {
+                        window.open("http://github.com/login/oauth/authorize?client_id=b3b546e022ca3539a8bb&redirect_url=http://localhost:8080/callback&scope=user&state=1");
+                        window.localStorage.setItem("closable", true);
+                    }
+                } else {
+                    alert(response.message);
+                }
+
+            }
+        },
+        dataType: "json"
+    });
+}
+
 //提交回复
 function Post() {
     var questionId = $('#input_id').val();
@@ -46,6 +116,7 @@ function comment(e) {
     var content = $('#input-' + id).val();
     commentToTarget(id, 2, content);
 }
+
 
 //取消评论
 function close(e) {
@@ -156,7 +227,7 @@ function selectTag(e) {
     let previous = $('#tag').val();
     let value = e.getAttribute("data-tag");
 
-    if (previous.indexOf(value) === -1){
+    if (previous.indexOf(value) === -1) {
         if (previous) {
             $("#tag").val(previous + " " + value);
         } else {

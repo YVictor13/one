@@ -2,10 +2,12 @@ package com.example.one.Service;
 
 import com.example.one.Dto.PaginationDTO;
 import com.example.one.Dto.QuestionDTO;
+import com.example.one.Dto.QuestionQueryDTO;
 import com.example.one.exception.CustomizeException;
 import com.example.one.mapper.ExpendMapper;
 import com.example.one.mapper.QuestionMapper;
 import com.example.one.mapper.UserMapper;
+import com.example.one.model.Comment;
 import com.example.one.model.Question;
 import com.example.one.model.QuestionExample;
 import com.example.one.model.User;
@@ -35,34 +37,67 @@ public class QuestionService {
     @Autowired(required = false)
     private ExpendMapper expendMapper;
 
+    public void incLikeCount(Long id) {
+        Question record = new Question();
+        record.setLikeCount(1);
+        record.setId(id);
+        expendMapper.incQuestionLikeCount(record);
+    }
 
-    public PaginationDTO List(Integer page, Integer size) {
+    public PaginationDTO List(String search, Integer page, Integer size) {
+        if (StringUtils.isNotBlank(search)) {
+            String[] tags = StringUtils.split(search, " ");
+            search = Arrays.stream(tags).collect(Collectors.joining("|"));
+            PaginationDTO paginationDTO = new PaginationDTO();
+            QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+            questionQueryDTO.setSearch(search);
+            Integer totalCount = expendMapper.countBySearch(questionQueryDTO);
+            paginationDTO.setPagination(totalCount, page, size);
+            Integer offset = size * (paginationDTO.getCurrentPage() - 1);
+            QuestionExample example = new QuestionExample();
+            example.setOrderByClause("gmt_create desc");
+            questionQueryDTO.setSize(size);
+            questionQueryDTO.setPage(offset);
+            List<Question> questions = expendMapper.selectBySearch(questionQueryDTO);
 
-        PaginationDTO paginationDTO = new PaginationDTO();
-        Integer totalCount = (int) questionMapper.countByExample(new QuestionExample());
-        paginationDTO.setPagination(totalCount, page, size);
-        //size(page-1)
-        Integer offset = size * (paginationDTO.getCurrentPage() - 1);
-//        List<Question> questions = questionMapper.selectByExample(offset,size);
-        QuestionExample example = new QuestionExample();
-        example.setOrderByClause("gmt_create desc");
-        List<Question> questions = questionMapper.selectByExampleWithRowbounds(example,
-                new RowBounds(offset, size));
-
-        List<QuestionDTO> questionDTOList = new ArrayList<>();
-        for (Question question : questions) {
-            User user = userMapper.selectByPrimaryKey(question.getCreator());
-            if (user == null) {
-                throw new CustomizeException(NO_LOGIN);
+            List<QuestionDTO> questionDTOList = new ArrayList<>();
+            for (Question question : questions) {
+                User user = userMapper.selectByPrimaryKey(question.getCreator());
+                if (user == null) {
+                    throw new CustomizeException(NO_LOGIN);
+                }
+                QuestionDTO questionDTO = new QuestionDTO();
+                BeanUtils.copyProperties(question, questionDTO);
+                questionDTO.setUser(user);
+                questionDTOList.add(questionDTO);
             }
-            QuestionDTO questionDTO = new QuestionDTO();
-            BeanUtils.copyProperties(question, questionDTO);
-            questionDTO.setUser(user);
-            questionDTOList.add(questionDTO);
-
+            paginationDTO.setData(questionDTOList);
+            return paginationDTO;
+        } else {
+            PaginationDTO paginationDTO = new PaginationDTO();
+            Integer totalCount = (int) questionMapper.countByExample(new QuestionExample());
+            paginationDTO.setPagination(totalCount, page, size);
+            Integer offset = size * (paginationDTO.getCurrentPage() - 1);
+            QuestionExample example = new QuestionExample();
+            example.setOrderByClause("gmt_create desc");
+            List<Question> questions = questionMapper.selectByExampleWithRowbounds(example,
+                    new RowBounds(offset, size));
+            List<QuestionDTO> questionDTOList = new ArrayList<>();
+            for (Question question : questions) {
+                User user = userMapper.selectByPrimaryKey(question.getCreator());
+                if (user == null) {
+                    throw new CustomizeException(NO_LOGIN);
+                }
+                QuestionDTO questionDTO = new QuestionDTO();
+                BeanUtils.copyProperties(question, questionDTO);
+                questionDTO.setUser(user);
+                questionDTOList.add(questionDTO);
+            }
+            paginationDTO.setData(questionDTOList);
+            return paginationDTO;
         }
-        paginationDTO.setData(questionDTOList);
-        return paginationDTO;
+
+
     }
 
     public PaginationDTO profileList(Long id, Integer page, Integer size) {
@@ -174,11 +209,35 @@ public class QuestionService {
         List<Question> questions = expendMapper.selectRelated(question);
         List<QuestionDTO> questionDTOS = questions.stream().map(q -> {
             QuestionDTO questionDTO = new QuestionDTO();
-            BeanUtils.copyProperties(q,questionDTO);
+            BeanUtils.copyProperties(q, questionDTO);
             return questionDTO;
         }).collect(Collectors.toList());
 
         return questionDTOS;
+    }
+
+    public PaginationDTO recommendList(Integer size) {
+
+        List<QuestionDTO> questionDTOList = new ArrayList<>();
+        PaginationDTO paginationDTO = new PaginationDTO();
+
+        QuestionExample questionExample = new QuestionExample();
+        questionExample.setOrderByClause("view_count desc");
+        List<Question> questions = questionMapper.selectByExampleWithRowbounds(questionExample,
+                new RowBounds(0, size));
+        for (Question question : questions) {
+            User user = userMapper.selectByPrimaryKey(question.getCreator());
+            if (user == null) {
+                throw new CustomizeException(NO_LOGIN);
+            }
+            QuestionDTO questionDTO = new QuestionDTO();
+            BeanUtils.copyProperties(question, questionDTO);
+            questionDTO.setUser(user);
+            questionDTOList.add(questionDTO);
+        }
+        paginationDTO.setData(questionDTOList);
+        return paginationDTO;
+
     }
 }
 

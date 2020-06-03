@@ -67,29 +67,32 @@
             <nav aria-label="Page navigation" th:if="${Pagination.totalPage>1}">
                 <ul class="pagination">
                     <li>
-                        <a th:if="${Pagination.showReturnFirstPage}" href="/?page=1" aria-label="Previous">
+                        <a th:if="${Pagination.showReturnFirstPage}" th:href="@{/(page =1,search=${search})}"
+                           aria-label="Previous">
                             <span aria-hidden="true">&lt;&lt;</span>
                         </a>
                     </li>
                     <li>
-                        <a th:if="${Pagination.showPrePage}" th:href="@{/(page=${Pagination.currentPage-1})}"
+                        <a th:if="${Pagination.showPrePage}"
+                           th:href="@{/(page=${Pagination.currentPage-1},search=${search})}"
                            aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <li th:each="page:${Pagination.showPages}" th:class="${Pagination.currentPage==page}?active:''">
-                        <a th:href="@{/(page=${page})}" th:text="${page}"></a>
+                        <a th:href="@{/(page=${page},search=${search})}" th:text="${page}"></a>
                     </li>
 
                     <li>
-                        <a th:if="${Pagination.showNextPage}" th:href="@{/(page=${Pagination.currentPage+1})}"
+                        <a th:if="${Pagination.showNextPage}"
+                           th:href="@{/(page=${Pagination.currentPage+1},search=${search})}"
                            aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                     <li>
-                        <!--/*@thymesVar id="TotalPage" type=""*/-->
-                        <a th:if="${Pagination.showReturnEndPage}" th:href="@{/(page=${Pagination.totalPage})}"
+                        <a th:if="${Pagination.showReturnEndPage}"
+                           th:href="@{/(page=${Pagination.totalPage},search=${search})}"
                            aria-label="Next">
                             <span aria-hidden="true">&gt;&gt;</span>
                         </a>
@@ -100,9 +103,17 @@
             <hr>
         </div>
 
+
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <h3>官微助手</h3>
+            <img src="/images/wechatLogo.jpg" alt="图片" style="width: 100px;height: 100px;">
             <h3>热门换题</h3>
             想你所想，做你所不敢做，所谓引领。
+            <ul>
+                <li th:each="list:${recommendList.data}">
+                    <a th:href="@{'/question/'+${list.id}}" th:text="${list.title}" id="related"></a>
+                </li>
+            </ul>
         </div>
     </div>
 
