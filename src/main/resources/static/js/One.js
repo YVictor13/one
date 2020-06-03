@@ -1,7 +1,7 @@
 // 问题点赞功能
 
 function collapseQuestionLike(e){
-    let id = e.getAttribute("data-like");
+    let id = e.getAttribute("data-question-like");
     console.log(id);
     likeQuestionCount(id);
 }
@@ -24,7 +24,7 @@ function likeQuestionCount(id) {
                         window.localStorage.setItem("closable", true);
                     }
                 } else {
-                    alert("未登陆无法点赞，请先登录！！！");
+                    alert(response.message);
                 }
             }
         },
@@ -35,7 +35,7 @@ function likeQuestionCount(id) {
 
 // 评论实现点赞功能
 function collapseCommentLike(e) {
-    let id = e.getAttribute("data-like");
+    let id = e.getAttribute("data-comment-like");
     console.log(id);
     likeCommentCount(id);
 }
@@ -59,9 +59,8 @@ function likeCommentCount(id) {
                         window.localStorage.setItem("closable", true);
                     }
                 } else {
-                    alert("未登陆无法点赞，请先登录！！！");
+                    alert(response.message);
                 }
-
             }
         },
         dataType: "json"

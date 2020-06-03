@@ -20,6 +20,7 @@ public class QuestionController {
     @Autowired(required = false)
     private CommentService commentService;
 
+
     @GetMapping("question/{id}")
     public String question(@PathVariable(name = "id") Long id,
                            Model model){
@@ -28,13 +29,11 @@ public class QuestionController {
         List<QuestionDTO> relatedQuestions = questionService.selectRelated(questionDTO);
         List<CommentDTO> commentDTOList = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
         //        List<CommentDTO> comment2DTOList = commentService.listByTargetId(id, CommentTypeEnum.COMMENT);
-
         //        增加阅读数
         questionService.incView(id);
         model.addAttribute("question",questionDTO);
         model.addAttribute("comments",commentDTOList);
         model.addAttribute("relatedQuestions",relatedQuestions);
-
         return "question";
     }
 }

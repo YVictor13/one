@@ -25,6 +25,10 @@ public class CommentController {
     @Autowired(required = false)
     private QuestionService questionService;
 
+    Long QuestionGlobal = 0L;
+    Long CommentGlobal = 0L;
+
+
     @ResponseBody
     @RequestMapping(value = "/comment", method = RequestMethod.POST)
     public Object post(@RequestBody CommentCreateDTO commentCreateDTO,
@@ -64,6 +68,10 @@ public class CommentController {
         if (user == null) {
             return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
         }
+        if (CommentGlobal.equals(id)) {
+            return ResultDTO.errorOf(CustomizeErrorCode.MORE_CLICK);
+        }
+        CommentGlobal = id ;
         commentService.incLikeCount(id);
         return ResultDTO.okOf();
     }
@@ -75,6 +83,10 @@ public class CommentController {
         if (user == null) {
             return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
         }
+        if(QuestionGlobal.equals(id)){
+            return ResultDTO.errorOf(CustomizeErrorCode.MORE_CLICK);
+        }
+        QuestionGlobal = id ;
         questionService.incLikeCount(id);
         return ResultDTO.okOf();
     }
