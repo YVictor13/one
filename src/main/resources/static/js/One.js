@@ -3,9 +3,9 @@
 function collapseQuestionLike(e){
     let id = e.getAttribute("data-like");
     console.log(id);
-    likeQUestionCount(id);
+    likeQuestionCount(id);
 }
-function likeQUestionCount(id) {
+function likeQuestionCount(id) {
     $.ajax({
         type: "POST",
         url: "/question/likeCount/"+id,
@@ -24,7 +24,7 @@ function likeQUestionCount(id) {
                         window.localStorage.setItem("closable", true);
                     }
                 } else {
-                    alert(response.message);
+                    alert("未登陆无法点赞，请先登录！！！");
                 }
             }
         },
@@ -59,7 +59,7 @@ function likeCommentCount(id) {
                         window.localStorage.setItem("closable", true);
                     }
                 } else {
-                    alert(response.message);
+                    alert("未登陆无法点赞，请先登录！！！");
                 }
 
             }
